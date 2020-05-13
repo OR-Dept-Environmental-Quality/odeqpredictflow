@@ -3,7 +3,28 @@
 
  Developed for Oregon DEQ by Tetra Tech with funds provided by U.S. EPA.
 
-The strategy implemented to predict flow timeseries is based on the QPPQ (flow-probability-probability-flow) method described in in Lorenz & Ziegeweid (2016) and utilizes online USGS resources to retrieve stream information. The data are processed to return predicted mean daily streamflows for an ungaged stream location. The method is implemented through an R package, with four functions to handle four different styles of inputs. 
+The strategy implemented to predict flow timeseries is based on the QPPQ (flow-probability-probability-flow) method described in Lorenz & Ziegeweid (2016) and utilizes online USGS resources to retrieve stream information. The data are processed to return predicted mean daily streamflows for an ungaged stream location. The method is implemented through an R package, with four functions to handle four different styles of inputs. 
+
+```R
+
+Predict.Mean.Daily.Flow.Station_Series(station, start_date, end_date)
+
+Predict.Mean.Daily.Flow.Coord_Series(latitude, longitude, start_date, end_date)
+
+Predict.Mean.Daily.Flow.Station_Vector(station, date_vector)
+
+Predict.Mean.Daily.Flow.Coord_Vector(latitude, longitude, date_vector)
+
+```
+Where:
+•	station = a single MLocID for an ODEQ monitoring station (example: “UmpNF-078”, "31878-ORDEQ", or "14138900" )
+•	start_date = a single date in “YYYY-MM-DD” format for the start of a continuous daily series
+•	end_date = a single date in “YYYY-MM-DD” format for the end of a continuous daily series
+•	latitude = the latitude of a target stream site, in decimal degrees
+•	longitude = the longitude of a target stream site, in decimal degrees
+•	date_vector = a vector of dates in “YYYY-MM-DD” format, not necessarily consecutive (example: c(“2010-10-01”, “2011-03-09”, “2012-10-30”) )
+
+
 
 To identify the target location, two different types of input are available:
   1.	Latitude and longitude (decimal degrees, NAD83) for the stream site 
