@@ -3,8 +3,16 @@
 
  Developed for Oregon DEQ by Tetra Tech with funds provided by U.S. EPA.
 
-The strategy implemented to predict flow timeseries is based on the QPPQ (flow-probability-probability-flow) method described in Lorenz & Ziegeweid (2016) and utilizes online USGS resources to retrieve stream information. The data are processed to return predicted mean daily streamflows for an ungaged stream location. The method is implemented through an R package, with four functions to handle four different styles of inputs. 
+The strategy implemented to predict flow timeseries is based on the QPPQ (flow-probability-probability-flow) method described in Lorenz & Ziegeweid (2016) and utilizes online USGS resources to retrieve stream information. The data are processed to return predicted mean daily streamflows for an ungaged stream location.  
 
+To use the QPPQ method, three datasets are required to predict the mean daily stream flow at the target site: the mean daily flow for the same date range at a nearby reference site, flow-duration statistics for the reference site, and flow-duration statistics for the target site.
+
+Figure 1 outlines the QPPQ method process. From the reference site flow on a given date, the exceedance probability is determined from the flow-duration statistics for that site. The flow-duration statistics for the target site are then used to identify the flow at the target site that would have equal exceedance probability to the reference site’s flow. The resulting flow is applied to the corresponding date for the target site. To produce a series of mean daily flows, the process is repeated for each day in the series.
+
+![QPPQ method](https://github.com/rmichie/odeqpredictflow/blob/master/Lorenz_and_Ziegewed_2016_QPPQ_diagram.png) 
+Figure 1. Diagram of the QPPQ method for flow prediction, from Lorenz & Ziegeweid (2016).
+
+The method is implemented through an R package, with four functions to handle four different styles of inputs.
 ```R
 
 Predict.Mean.Daily.Flow.Station_Series(station, start_date, end_date)
@@ -32,13 +40,6 @@ Additionally, two different types of input are available for the time range inpu
   1.	A start and end date, for which a series of mean daily flows will be returned 
   2.	A vector of (not necessarily continuous) dates, for which the individual mean daily flows will be returned 
   
-To use the QPPQ method of predicting streamflow, three datasets are required to predict the mean daily stream flow at the target site: the mean daily flow for the same date range at a nearby reference site, flow-duration statistics for the reference site, and flow-duration statistics for the target site.
-
-Figure 1 outlines the QPPQ method process. From the reference site flow on a given date, the exceedance probability is determined from the flow-duration statistics for that site. The flow-duration statistics for the target site are then used to identify the flow at the target site that would have equal exceedance probability to the reference site’s flow. The resulting flow is applied to the corresponding date for the target site. To produce a series of mean daily flows, the process is repeated for each day in the series.
-
-![QPPQ method](https://github.com/rmichie/odeqpredictflow/blob/master/Lorenz_and_Ziegewed_2016_QPPQ_diagram.png) 
-Figure 1. Diagram of the QPPQ method for flow prediction, from Lorenz & Ziegeweid (2016).
-
 From the user-supplied inputs, this script executes the following processes:
   1.	Identify the reference station 
   2.	Retrieve target site flow-duration statistics  
