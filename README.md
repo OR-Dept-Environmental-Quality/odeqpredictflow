@@ -15,13 +15,13 @@ Figure 1. Diagram of the QPPQ method for flow prediction, from Lorenz & Ziegewei
 The method is implemented through an R package, with four functions to handle four different styles of inputs.
 ```R
 
-Predict.Mean.Daily.Flow.Station_Series(station, start_date, end_date)
+flow_station(station, start_date, end_date, reference)
 
-Predict.Mean.Daily.Flow.Coord_Series(latitude, longitude, start_date, end_date)
+flow_coord(latitude, longitude, start_date, end_date, reference)
 
-Predict.Mean.Daily.Flow.Station_Vector(station, date_vector)
+flow_stationv(station, date_vector, reference)
 
-Predict.Mean.Daily.Flow.Coord_Vector(latitude, longitude, date_vector)
+flow_coordv(latitude, longitude, date_vector, reference)
 
 ```
 Where:  
@@ -30,7 +30,8 @@ Where:
 * end_date = a single date in “YYYY-MM-DD” format for the end of a continuous daily series  
 * latitude = the latitude of a target stream site, in decimal degrees  
 * longitude = the longitude of a target stream site, in decimal degrees  
-* date_vector = a vector of dates in “YYYY-MM-DD” format, not necessarily consecutive (example: c(“2010-10-01”, “2011-03-09”, “2012-10-30”) )  
+* date_vector = a vector of dates in “YYYY-MM-DD” format, not necessarily consecutive (example: c(“2010-10-01”, “2011-03-09”, “2012-10-30”) )
+* reference = an optional parameter to assign the reference USGS gage used (example: 14318000)
 
 To identify the target location, two different types of input are available:
   1.	Latitude and longitude (decimal degrees, NAD83) for the stream site 
