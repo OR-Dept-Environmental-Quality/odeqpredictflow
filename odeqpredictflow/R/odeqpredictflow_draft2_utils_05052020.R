@@ -1,31 +1,9 @@
 
-
-
-
-# Umpqua Test sites:
-#       Little River at Peel, OR,        14318000     43.252618,-123.026172
-#       South Umpqua Near Brockway, OR,  14312000     43.133172,-123.398405
-#       North Umpqua at Winchester, OR,  14319500     43.271,   -123.412299
-#       Umpqua River Near Elkton, OR,    14321000     43.58595, -123.555373
-
-
-#       West fork cow creek nr Glendale  14309500    	42.804004	-123.610907
-
-
-
-
-
-
-
-
-
-
 Source.Station.From.List <- function(station_in){
   station_detail <-odeqpredict_stations[odeqpredict_stations$MLocID==as.character(station_in),]
   return(list(station_detail$snapLat[1], station_detail$snapLong[1], station_detail$near_USGS[1]))
   #[[1]] is snapped target lat, [[2]] is snapped target lon, [[3]] is nearest USGS station
 }
-
 
 Source.Station.From.Coords <- function(lat_in,lon_in){
 
